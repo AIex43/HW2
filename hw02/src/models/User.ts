@@ -1,16 +1,14 @@
-import { NotificationService } from "../services/NotificationService";
+import { INotificationService } from "../core/interfaces";
 
 export class User {
   constructor(
-    public email: string,
-    public phone: string,
-    public deviceToken: string
+    public readonly email: string,
+    public readonly phone: string,
+    public readonly deviceToken: string,
+    private readonly notificationService: INotificationService
   ) {}
 
   sendNotification(message: string): void {
-    const notifier = new NotificationService();
-    notifier.sendEmail(this, message);
-    notifier.sendSMS(this, message);
-    notifier.sendPush(this, message);
+    this.notificationService.notifyAll(message);
   }
 }
