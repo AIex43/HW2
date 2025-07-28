@@ -5,24 +5,23 @@ import { PushNotification } from "./services/PushNotification";
 import { NotificationService } from "./services/NotificationService";
 import { User } from "./models/User";
 
-
 const logger = new Logger();
 
-
-const emailChannel = new EmailNotification("example@email.com", logger);
-const smsChannel = new SMSNotification("+380123456789", logger);
-const pushChannel = new PushNotification("device-token-abc", logger);
-
-
-const notificationService = new NotificationService([
-  emailChannel,
-  smsChannel,
-  pushChannel
-]);
-
+const notificationService = new NotificationService(
+  {
+    email: "user@example.com",
+    phone: "+380123456789",
+    deviceToken: "device-token-abc"
+  },
+  [
+    { channel: new EmailNotification(logger), type: "email" },
+    { channel: new SMSNotification(logger), type: "phone" },
+    { channel: new PushNotification(logger), type: "deviceToken" }
+  ]
+);
 
 const user = new User(
-  "example@email.com",
+  "user@example.com",
   "+380123456789",
   "device-token-abc",
   notificationService
