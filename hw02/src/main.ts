@@ -11,12 +11,12 @@ const notificationService = new NotificationService(
   {
     email: "user@example.com",
     phone: "+380123456789",
-    deviceToken: "device-token-abc"
+    deviceToken: "device-token-abc",
   },
   [
     { channel: new EmailNotification(logger), type: "email" },
     { channel: new SMSNotification(logger), type: "phone" },
-    { channel: new PushNotification(logger), type: "deviceToken" }
+    { channel: new PushNotification(logger), type: "deviceToken" },
   ]
 );
 
